@@ -41,7 +41,3 @@ class Lehmer:
 
         return result
 
-
-lehmer = Lehmer()
-print(lehmer.generate_lehmer_low(16))
-
