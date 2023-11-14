@@ -23,7 +23,7 @@ class Geffe:
         new_bit = int(self.l11_seed[0]) ^ int(self.l11_seed[2])
         self.l11_seed = self.l11_seed[1:] + str(new_bit)
 
-    def generate_bit(self, length):
+    def generate(self, length):
         result = ""
         for _ in range(length):
             x = int(self.l11_seed[0])
