@@ -10,6 +10,7 @@ def str_xor(str1, str2):
     result = ''.join('1' if d1 != d2 else '0' for d1, d2 in zip(str1, str2))
     return result
 
+
 def str_or(str1, str2):
     max_len = max(len(str1), len(str2))
     str1 = str1.zfill(max_len)
@@ -38,7 +39,3 @@ class Wolfram:
             result += self.seed[31]
             self.seed = str_xor(self.cyclic_shift_left(1), str_or(self.seed, self.cyclic_shift_right(1)))
         return result
-
-
-wolfram = Wolfram()
-print(wolfram.generate(32))
