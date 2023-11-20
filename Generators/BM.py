@@ -20,7 +20,7 @@ class BM:
 
     def generate_byte_sequence(self, length):
         generated_sequence = ""
-        while len(generated_sequence) < length:
+        for _ in range(length//8):
             self.next_T()
             k = math.floor(256 * self.T / (self.p-1))
             print(k)

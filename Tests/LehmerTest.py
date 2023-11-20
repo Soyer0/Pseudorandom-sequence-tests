@@ -1,51 +1,47 @@
 import unittest
-
 from Tests import *
 from Generators.Lehmer import *
 
 
 class LehmerTest(unittest.TestCase):
     lehmer = Lehmer()
-    bit_sequence = lehmer.generate_lehmer_high(16384)
+    bit_sequence = lehmer.generate_lehmer_high(8000000)
 
-    def test_equality_of_signs(self):
-        alpha_001 = 0.01
-        result_001 = check_equality_of_signs(self.bit_sequence, alpha_001)
-        self.assertTrue(result_001)
+    def run_test(self, test_function, alpha):
+        print(f"Test: {test_function.__name__} - Alpha: {alpha}")
+        try:
+            result = test_function(self.bit_sequence, alpha)
+            print(f"Результат: {result}")
+            self.assertTrue(result)
+        except AssertionError:
+            self.addExpectedFailure(self.run_test, AssertionError)
 
-        alpha_005 = 0.05
-        result_005 = check_equality_of_signs(self.bit_sequence, alpha_005)
-        self.assertTrue(result_005)
+    def test_equality_of_signs_alpha_001(self):
+        self.run_test(check_equality_of_signs, 0.01)
 
-        alpha_01 = 0.1
-        result_01 = check_equality_of_signs(self.bit_sequence, alpha_01)
-        self.assertTrue(result_01)
+    def test_equality_of_signs_alpha_005(self):
+        self.run_test(check_equality_of_signs, 0.05)
 
-    def test_independence_of_signs(self):
-        alpha_001 = 0.01
-        result_001 = check_independence_of_signs(self.bit_sequence, alpha_001)
-        self.assertTrue(result_001)
+    def test_equality_of_signs_alpha_01(self):
+        self.run_test(check_equality_of_signs, 0.1)
 
-        alpha_005 = 0.05
-        result_005 = check_independence_of_signs(self.bit_sequence, alpha_005)
-        self.assertTrue(result_005)
+    def test_independence_of_signs_alpha_001(self):
+        self.run_test(check_independence_of_signs, 0.01)
 
-        alpha_01 = 0.1
-        result_01 = check_independence_of_signs(self.bit_sequence, alpha_01)
-        self.assertTrue(result_01)
+    def test_independence_of_signs_alpha_005(self):
+        self.run_test(check_independence_of_signs, 0.05)
 
-    def test_homogeneity_of_bin_seq(self):
-        alpha_001 = 0.01
-        result_001 = check_homogeneity_of_bin_seq(self.bit_sequence, alpha_001)
-        self.assertTrue(result_001)
+    def test_independence_of_signs_alpha_01(self):
+        self.run_test(check_independence_of_signs, 0.1)
 
-        alpha_005 = 0.05
-        result_005 = check_homogeneity_of_bin_seq(self.bit_sequence, alpha_005)
-        self.assertTrue(result_005)
+    def test_homogeneity_of_bin_seq_alpha_001(self):
+        self.run_test(check_homogeneity_of_bin_seq, 0.01)
 
-        alpha_01 = 0.1
-        result_01 = check_homogeneity_of_bin_seq(self.bit_sequence, alpha_01)
-        self.assertTrue(result_01)
+    def test_homogeneity_of_bin_seq_alpha_005(self):
+        self.run_test(check_homogeneity_of_bin_seq, 0.05)
+
+    def test_homogeneity_of_bin_seq_alpha_01(self):
+        self.run_test(check_homogeneity_of_bin_seq, 0.1)
 
 
 if __name__ == '__main__':

@@ -18,12 +18,16 @@ def check_equality_of_signs(bit_seq, alpha):
             bytes[byte] = 1
 
     xi_2 = 0
-    for key, value in bytes.items():
-        xi_2 += pow(value - n_j, 2) / n_j
 
-    z_alpha = norm.ppf(1 - alpha)
+    for key, value in bytes.items():
+        if key:
+            xi_2 += pow(value - n_j, 2) / n_j
+
+    z_alpha = norm.ppf(alpha)
     xi_2_alpha = sqrt(2 * 255) * z_alpha + 255
 
+    print(f"\nxi_2: {xi_2}")
+    print(f"xi_2_alpha: {xi_2_alpha}")
     return xi_2 <= xi_2_alpha
 
 
@@ -34,7 +38,8 @@ def check_independence_of_signs(bit_seq, alpha):
     bytes_j = {}
     for i in range(0, int(8 * len(bit_seq)), 8):
         byte = bit_seq[i:i + 8]
-        bytes.append(byte)
+        if byte:
+            bytes.append(byte)
     for i in range(0, len(bytes) - 1):
         if (bytes[i], bytes[i + 1]) in bytes_pair:
             bytes_pair[bytes[i], bytes[i + 1]] += 1
@@ -52,15 +57,17 @@ def check_independence_of_signs(bit_seq, alpha):
     xi_2 = 0
     m = len(bytes)
     n = m // 2
-    for i in bytes:
-        for j in bytes:
-            if bytes_i[i] != 0 and bytes_j[i] != 0 and (i, j) in bytes_pair:
-                xi_2 += pow(bytes_pair[(i, j)], 2) / (bytes_i[i] * bytes_j[i])
+    for i in range(256):
+        for j in range(256):
+            if bytes[i] in bytes_i and bytes[j] in bytes_j and (bytes[i], bytes[j]) in bytes_pair:
+                xi_2 += pow(bytes_pair[bytes[i], bytes[j]], 2) / (bytes_i[bytes[i]] * bytes_j[bytes[j]])
 
     xi_2 = n * (xi_2 - 1)
-    z_alpha = norm.ppf(1 - alpha)
+    z_alpha = norm.ppf(alpha)
     xi_2_alpha = sqrt(2 * pow(255, 2)) * z_alpha + pow(255, 2)
 
+    print(f"\nxi_2: {xi_2}")
+    print(f"xi_2_alpha: {xi_2_alpha}")
     return xi_2 <= xi_2_alpha
 
 
@@ -76,14 +83,15 @@ def check_homogeneity_of_bin_seq(bit_seq, alpha):
     bytes_r = [bytes[i * m_:(i + 1) * m_] for i in range(r)]
     xi_2 = 0
 
-    for i in bytes:
-        v_i = sum(sublist.count(i) for sublist in bytes_r)
+    for i in range(256):
+        v_i = sum(sublist.count(bytes[i]) for sublist in bytes_r)
         for j in bytes_r:
-            xi_2 += pow(j.count(i), 2) / (m_ * v_i)
+            xi_2 += pow(j.count(bytes[i]), 2) / (m_ * v_i)
 
     xi_2 = n * (xi_2 - 1)
-    z_alpha = norm.ppf(1 - alpha)
-    print(z_alpha)
-    xi_2_alpha = sqrt(2 * 255*(r-1)) * z_alpha + 255*(r-1)
-    print(xi_2_alpha)
+    z_alpha = norm.ppf(alpha)
+    xi_2_alpha = sqrt(2 * 255 * (r - 1)) * z_alpha + 255 * (r - 1)
+
+    print(f"\nxi_2: {xi_2}")
+    print(f"xi_2_alpha: {xi_2_alpha}")
     return xi_2 <= xi_2_alpha

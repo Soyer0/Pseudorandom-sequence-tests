@@ -4,8 +4,7 @@ import random
 class Lehmer:
     def __init__(self, seed=None, a=2 ** 16 + 1, m=2 ** 32, c=119):
         if seed is None:
-            # seed = random.randint(0, m - 1)
-            seed = 2
+            seed = random.randint(0, m - 1)
         self.seed = seed
         self.a = a
         self.m = m
@@ -14,7 +13,7 @@ class Lehmer:
     def generate_lehmer_low(self, length):
         result = ""
 
-        while len(result) < length:
+        for _ in range(length//8):
             self.seed = (self.a * self.seed + self.c) % self.m
             bin_seed = bin(self.seed)[2:]
             if len(bin_seed) < 32:
@@ -29,7 +28,7 @@ class Lehmer:
     def generate_lehmer_high(self, length):
         result = ""
 
-        while len(result) < length:
+        for _ in range(length//8):
             self.seed = (self.a * self.seed + self.c) % self.m
             bin_seed = bin(self.seed)[2:]
             if len(bin_seed) < 32:

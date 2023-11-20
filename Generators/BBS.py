@@ -23,7 +23,7 @@ class BBS:
 
     def generate_byte_sequence(self, length):
         generated_sequence = ""
-        while len(generated_sequence) < length:
+        for _ in range(length//8):
             self.next_r()
             generated_sequence += bin(self.r % 256)[2:].zfill(8)
         while len(generated_sequence) > length:
