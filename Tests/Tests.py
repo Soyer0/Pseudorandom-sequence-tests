@@ -67,27 +67,23 @@ def check_independence_of_signs(bit_seq, alpha):
 def check_homogeneity_of_bin_seq(bit_seq, alpha):
     bytes = []
     r = 32
+
     for i in range(0, len(bit_seq), 8):
         bytes.append(bit_seq[i:i + 8])
+
     m_ = len(bytes) // r
     n = m_ * r
-    print("Hey")
     bytes_r = [bytes[i * m_:(i + 1) * m_] for i in range(r)]
     xi_2 = 0
+
     for i in bytes:
-        print(f"Hui {xi_2}")
         v_i = sum(sublist.count(i) for sublist in bytes_r)
         for j in bytes_r:
             xi_2 += pow(j.count(i), 2) / (m_ * v_i)
+
     xi_2 = n * (xi_2 - 1)
     z_alpha = norm.ppf(1 - alpha)
     print(z_alpha)
     xi_2_alpha = sqrt(2 * 255*(r-1)) * z_alpha + 255*(r-1)
     print(xi_2_alpha)
     return xi_2 <= xi_2_alpha
-
-
-lehmer = Lehmer()
-bit_sequence = lehmer.generate_lehmer_high(1000000)
-print(bit_sequence)
-print(check_homogeneity_of_bin_seq(bit_sequence, 0.1))
