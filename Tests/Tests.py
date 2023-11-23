@@ -24,7 +24,7 @@ def check_equality_of_signs(bit_seq, alpha):
     z_alpha = norm.ppf(alpha)
     xi_2_alpha = sqrt(2 * 255) * z_alpha + 255
 
-    print(f"\nxi_2: {xi_2}")
+    print(f"xi_2: {xi_2}")
     print(f"xi_2_alpha: {xi_2_alpha}")
     return xi_2 <= xi_2_alpha
 
@@ -64,7 +64,7 @@ def check_independence_of_signs(bit_seq, alpha):
     z_alpha = norm.ppf(alpha)
     xi_2_alpha = sqrt(2 * pow(255, 2)) * z_alpha + pow(255, 2)
 
-    print(f"\nxi_2: {xi_2}")
+    print(f"xi_2: {xi_2}")
     print(f"xi_2_alpha: {xi_2_alpha}")
     return xi_2 <= xi_2_alpha
 
@@ -90,6 +90,6 @@ def check_homogeneity_of_bin_seq(bit_seq, alpha):
     z_alpha = norm.ppf(alpha)
     xi_2_alpha = sqrt(2 * 255 * (r - 1)) * z_alpha + 255 * (r - 1)
 
-    print(f"\nxi_2: {xi_2}")
+    print(f"xi_2: {xi_2}")
     print(f"xi_2_alpha: {xi_2_alpha}")
     return xi_2 <= xi_2_alpha
