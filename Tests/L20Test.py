@@ -1,14 +1,14 @@
 import unittest
 from Tests import *
-from Generators.Lehmer import *
+from Generators.L20 import *
 
 
-class LehmerTest(unittest.TestCase):
-    lehmer = Lehmer()
-    bit_sequence = lehmer.generate_lehmer_high(8000000)
+class Test(unittest.TestCase):
+    gen = L20()
+    bit_sequence = gen.generate(6000000)
 
     def run_test(self, test_function, alpha):
-        print(f"Test: {test_function.__name__} - Alpha: {alpha}")
+        print(f"\nTest: {test_function.__name__} - Alpha: {alpha}")
         try:
             result = test_function(self.bit_sequence, alpha)
             print(f"Результат: {result}")

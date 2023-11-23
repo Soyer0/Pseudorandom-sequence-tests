@@ -2,8 +2,6 @@ from math import sqrt
 
 from scipy.stats import norm
 
-from Generators.Lehmer import Lehmer
-
 
 def check_equality_of_signs(bit_seq, alpha):
     bytes = {}

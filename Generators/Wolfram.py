@@ -23,7 +23,6 @@ def str_or(str1, str2):
 class Wolfram:
     def __init__(self):
         self.seed = "1" + ''.join(random.choice('01') for _ in range(31))
-        print(self.seed)
 
     def cyclic_shift_left(self, n):
         n = n % len(self.seed)
