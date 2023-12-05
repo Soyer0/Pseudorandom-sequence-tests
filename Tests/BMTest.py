@@ -5,7 +5,7 @@ from Generators.BM import *
 
 class Test(unittest.TestCase):
     gen = BM()
-    bit_sequence = gen.generate_bit_sequence(6000000)
+    bit_sequence = gen.generate_byte_sequence(6000000)
 
     def run_test(self, test_function, alpha):
         print(f"\nTest: {test_function.__name__} - Alpha: {alpha}")

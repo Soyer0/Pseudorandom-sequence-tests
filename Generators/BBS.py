@@ -1,7 +1,7 @@
 import random
 
 
-class BBS:
+class BBS: # Fix
     def __init__(self):
         self.p = int("D5BBB96D30086EC484EBA3D7F9CAEB07", 16)
         self.q = int("425D2B9BFDB25B9CF6C416CC6E37B59C1F", 16)

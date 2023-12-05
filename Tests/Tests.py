@@ -8,7 +8,7 @@ def check_equality_of_signs(bit_seq, alpha):
     m = len(bit_seq) / 8
     n_j = m // 256
 
-    for i in range(0, int(8 * len(bit_seq)), 8):
+    for i in range(0, len(bit_seq), 8):
         byte = bit_seq[i:i + 8]
         if byte in bytes:
             bytes[byte] += 1
@@ -21,7 +21,7 @@ def check_equality_of_signs(bit_seq, alpha):
         if key:
             xi_2 += pow(value - n_j, 2) / n_j
 
-    z_alpha = norm.ppf(alpha)
+    z_alpha = norm.ppf(1-alpha)
     xi_2_alpha = sqrt(2 * 255) * z_alpha + 255
 
     print(f"xi_2: {xi_2}")
@@ -34,7 +34,7 @@ def check_independence_of_signs(bit_seq, alpha):
     bytes_pair = {}
     bytes_i = {}
     bytes_j = {}
-    for i in range(0, int(8 * len(bit_seq)), 8):
+    for i in range(0, len(bit_seq), 8):
         byte = bit_seq[i:i + 8]
         if byte:
             bytes.append(byte)
@@ -61,7 +61,8 @@ def check_independence_of_signs(bit_seq, alpha):
                 xi_2 += pow(bytes_pair[bytes[i], bytes[j]], 2) / (bytes_i[bytes[i]] * bytes_j[bytes[j]])
 
     xi_2 = n * (xi_2 - 1)
-    z_alpha = norm.ppf(alpha)
+
+    z_alpha = norm.ppf(1-alpha)
     xi_2_alpha = sqrt(2 * pow(255, 2)) * z_alpha + pow(255, 2)
 
     print(f"xi_2: {xi_2}")
@@ -87,7 +88,8 @@ def check_homogeneity_of_bin_seq(bit_seq, alpha):
             xi_2 += pow(j.count(bytes[i]), 2) / (m_ * v_i)
 
     xi_2 = n * (xi_2 - 1)
-    z_alpha = norm.ppf(alpha)
+
+    z_alpha = norm.ppf(1-alpha)
     xi_2_alpha = sqrt(2 * 255 * (r - 1)) * z_alpha + 255 * (r - 1)
 
     print(f"xi_2: {xi_2}")
